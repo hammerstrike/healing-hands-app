@@ -1,2 +1,2 @@
-# healing-hands
-Website and app
+# healing-hands-app
+
