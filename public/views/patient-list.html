@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card strpied-tabled-with-hover">
+                <div class="header ">                    
+                    <h4 class="title">Patient's List</h4>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="content table-full-width table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Patient Name</th>
+                                <th>Age</th>
+                                <th>Sex</th>
+                                <th>Reffered By</th>
+                                <th>Procedure/Treatment</th>                                
+                                <th>Amount Paid</th>
+                                <th>Amount Total</th>
+                                <th>Amount Remaining</th>
+                                <th>Additional Info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="patient in patients" ng-class="{'text-danger' : (patient.amountTotal - patient.amountPaid) > 0}">
+                                <td>{{patient.patientId}}</td>
+                                <td>{{patient.patientName}}</td>
+                                <td>{{patient.age}}</td>
+                                <td>{{patient.sex}}</td>
+                                <td>{{patient.refferedBy}}</td>
+                                <td>{{patient.procedureTreatment}}</td>
+                                <td>{{patient.amountPaid}}</td>
+                                <td>{{patient.amountTotal}}</td>
+                                <td>{{patient.amountTotal - patient.amountPaid}}</td>
+                                <td>{{patient.additionalInfo}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

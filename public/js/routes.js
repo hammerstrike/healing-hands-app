@@ -2,13 +2,12 @@ angular
     .module('app')
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 
-        $urlRouterProvider.otherwise('/dashboard');
+        $urlRouterProvider.otherwise('/login');
 
         $ocLazyLoadProvider.config({
             // Set to true if you want to see what and when is dynamically loaded
             debug: true
         });
-
 
         $stateProvider
             .state('app', {
@@ -18,6 +17,23 @@ angular
                     page: "Master"
                 },
                 resolve: {
+                    "Auth" : ['UserService','$state','$q',function(UserService,$state,$q){
+                        var authPromise = $q.defer();
+
+                        UserService.auth().then(function(response){
+                            if(response.auth){
+                                authPromise.resolve(response);
+                            }else{
+                                $state.go('appSimple.login');
+                                //authPromise.reject(response.data);
+                            }
+                        },function(reason){
+                            console.log(reason);
+                            $state.go('appSimple.login');
+                            //authPromise.resolve(reason);
+                        })
+                        return authPromise.promise;
+                    }],
                     loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             files: ['js/controllers/controller.master.js']
@@ -58,6 +74,22 @@ angular
                 }
             })
 
+            .state('app.patient-list', {
+                url: '/patient-list',
+                param: {
+                    page: "Patient List"
+                },
+                templateUrl: 'views/patient-list.html',
+                controller: 'PatientListController',
+                resolve: {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            files: ['js/controllers/controller.patient-list.js']
+                        });
+                    }]
+                }
+            })
+
             .state('app.page2', {
                 url: '/page2',
                 templateUrl: 'views/page2.html',
@@ -81,7 +113,35 @@ angular
             // Additional Pages
             .state('appSimple.login', {
                 url: '/login',
-                templateUrl: 'views/pages/login.html'
+                templateUrl: 'views/pages/login.html',
+                param: {
+                    page: "Login"
+                },
+                controller: 'LoginController',
+                resolve: {
+                    "Auth" : ['UserService','$state','$q',function(UserService,$state,$q){
+                        var authPromise = $q.defer();
+
+                        UserService.auth().then(function(response){
+                            console.log(response);
+                            if(response.auth){
+                                $state.go('app.dashboard');
+                            }else{
+                                authPromise.resolve(response);
+                            }
+                            
+                        },function(reason){
+                            console.log(reason);
+                            authPromise.resolve(reason);
+                        })
+                        return authPromise.promise;
+                    }],
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            files: ['js/controllers/controller.login.js']
+                        });
+                    }]
+                }
             })
             .state('appSimple.register', {
                 url: '/register',

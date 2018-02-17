@@ -89,13 +89,15 @@ var User = {
         })
     },
 
-    getUser: function (userId) {
-
-        UserModel.findById(userId, { password: 0 }, function (err, user) {
-            if (err) return res.status(500).send("There was a problem finding the user.");
-            if (!user) return res.status(404).send("No user found.");
-            res.status(200).send(user);
-        });
+    auth: function (userId) {
+        var query = {userId :userId}
+        return new Promise(function (resolve, reject) {
+            UserModel.findOne(query, { password: 0, timestamp: 0, _id : 0  }, function (err, user) {
+                if (err) reject({auth : false , message : err});
+                if (!user) reject({auth : false , message : 'No such user'});
+                resolve({auth : true , user : user});
+            });
+        })
     }
 }
 

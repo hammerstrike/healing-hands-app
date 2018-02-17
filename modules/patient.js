@@ -7,25 +7,22 @@ var Patient = {
         var query = query || {};
         return new Promise(function(resolve, reject) {
             PatientModel
-                .find(query,function(err,patientData){
+                .find(query,{_id : 0},function(err,patientData){
                     resolve(patientData);
                 })
         })
     },
 
-    savePatient : function(data){        
+    savePatient : function(data){
 
-        var newPatientData = new PatientModel(data);
-        console.log("patient:19",newPatientData);
+        var newPatientData = new PatientModel(data);       
 
         return new Promise(function(resolve, reject) {
             newPatientData.save()
-                .then(function (patientData) {
-                    console.log("patient:24",patientData);
+                .then(function (patientData) {                    
                     resolve(patientData);
                 })
-                .catch(function(err){
-                    console.log("patient:28",err);
+                .catch(function(err){                    
                     reject(err)
                 })
         })

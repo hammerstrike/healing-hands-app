@@ -9,7 +9,7 @@ var User = require('../modules/user.js')
 router.post('/login', function (req, res) {
 
     User.login({ username: req.body.username, password: req.body.password }).then(function (result) {
-        res.set('x-auth-token', result.token );
+        res.set('x-access-token', result.token );
         res.json({
             status: "success",
             data: result.data
@@ -57,19 +57,13 @@ router.post('/register', function (req, res) {
     })
 });
 
-//Get User
-router.get('/me', VerifyToken, function (req, res) {
+//Auth : Accepts Token
+router.post('/auth', VerifyToken, function (req, res) {
 
-    User.getUser(req.userId).then(function (result) {
-        res.json({
-            status: "success",
-            data: result
-        });
+    User.auth(req.userId).then(function (result) {
+        res.json(result);
     }, function (reason) {
-        res.json({
-            status: "fail",
-            data: reason
-        });
+        res.json(reason);
     })
     .catch(function (reason) {
         res.json({

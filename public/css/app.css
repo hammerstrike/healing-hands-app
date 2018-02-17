@@ -1,101 +1,193 @@
+/* View */
+html,body{
+    display: block;
+    height: 100%;
+}
+.main-view,
+.general-view{
+    min-width: 100%;
+    height: 100%;
+}
+.general-view{
+    background-color: #986fda;
+}
 @media (min-width: 992px) {
     .typo-line {
-        padding-left: 140px;
-        margin-bottom: 40px;
-        position: relative;
-   }
+            padding-left: 140px;
+            margin-bottom: 40px;
+            position: relative;
+    }
     .typo-line .category {
-        transform: translateY(-50%);
-        top: 50%;
-        left: 0px;
-        position: absolute;
-   }
-}
-.all-icons [class*="pe-"] {
-    font-size: 40px;
-}
-.all-icons input {
-    border: 0;
-}
-.all-icons .font-icon-detail {
-    text-align: center;
-    padding: 45px 0px 30px;
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    margin: 15px 0;
-}
-.all-icons .font-icon-detail input {
-    margin: 25px auto 0;
-    width: 100%;
-    text-align: center;
-    display: block;
-    color: #aaa;
-    font-size: 13px;
-}
-#map {
-    position: relative;
-    width: 100%;
-    height: calc(100% - 60px);
-}
-.places-buttons .btn {
-    margin-bottom: 30px 
-}
-.sidebar .nav>li.active-pro {
-    position: absolute;
-    width: 100%;
-    bottom: 10px;
-}
-.sidebar .nav>li.active-pro a {
-    background: rgba(255, 255, 255, 0.14);
-    opacity: 1;
-    color: #FFFFFF;
-}
-.table-upgrade td:nth-child(2), .table-upgrade td:nth-child(3) {
-    text-align: center;
-}
-.reset-ul-style {
-    list-style: none;
-    padding: 0;
-}
-.autocomp, .autocomp ul {
-    width: 100%;
-}
-.autocomp, .autocomp ul, .autocomp li {
-    border-radius: 0;
-}
-.autocomp ul {
-}
-.autocomp li {
+            transform: translateY(-50%);
+            top: 50%;
+            left: 0px;
+            position: absolute;
+    }
 }
 
+.all-icons [class*="pe-"] {
+        font-size: 40px;
+}
+
+.all-icons input {
+        border: 0;
+}
+
+.all-icons .font-icon-detail {
+        text-align: center;
+        padding: 45px 0px 30px;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        margin: 15px 0;
+}
+
+.all-icons .font-icon-detail input {
+        margin: 25px auto 0;
+        width: 100%;
+        text-align: center;
+        display: block;
+        color: #aaa;
+        font-size: 13px;
+}
+
+#map {
+        position: relative;
+        width: 100%;
+        height: calc(100% - 60px);
+}
+
+.places-buttons .btn {
+        margin-bottom: 30px
+}
+
+.sidebar .nav>li.active-pro {
+        position: absolute;
+        width: 100%;
+        bottom: 10px;
+}
+
+.sidebar .nav>li.active-pro a {
+        background: rgba(255, 255, 255, 0.14);
+        opacity: 1;
+        color: #FFFFFF;
+}
+
+.table-upgrade td:nth-child(2),
+.table-upgrade td:nth-child(3) {
+        text-align: center;
+}
+
+.reset-ul-style {
+        list-style: none;
+        padding: 0;
+}
+
+.autocomp,
+.autocomp ul {
+        width: 100%;
+}
+
+.autocomp,
+.autocomp ul,
+.autocomp li {
+        border-radius: 0;
+}
+
+.autocomp ul {}
+
+.autocomp li {}
+
+
 /* Datepicker */
-.uib-datepicker .btn{
-    border-width: 0px;
-    color: #000;
+
+.uib-datepicker .btn {
+        border-width: 0px;
+        color: #000;
 }
-.uib-datepicker .btn:hover{
-    background-color: #ddd;
+
+.uib-datepicker .btn:hover {
+        background-color: #ddd;
 }
+
 .uib-datepicker-popup.dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    border-radius: 0;
+        opacity: 1;
+        visibility: visible;
+        border-radius: 0;
 }
+
 .uib-datepicker .uib-title,
 .uib-datepicker .uib-left,
-.uib-datepicker .uib-right{
-    color: #986fda;
+.uib-datepicker .uib-right {
+        color: #986fda;
 }
+
+
 /* Medicine */
+
 .outstock-loader {
-    float: left;
-    padding: 10px 0;
+        float: left;
+        padding: 10px 0;
 }
+
 .table>tbody>tr.danger>td {
-    background-color: inherit;
-    color: #f00;
+        background-color: inherit;
+        color: #f00;
 }
+
 .table>tbody>tr.muted>td {
-    background-color: inherit;
-    color: #bbb;
+        background-color: inherit;
+        color: #bbb;
 }
+
+
+/* Login */
+
+.form-signin {
+    max-width: 380px;
+    padding: 15px 35px 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 30px;
+}
+
+.form-signin .checkbox {
+    font-weight: normal;
+}
+
+.form-signin .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* Patient Record */

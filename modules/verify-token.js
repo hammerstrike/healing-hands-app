@@ -1,12 +1,12 @@
 var JWT = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
-
+    //console.log( 'Request', req);
     // check header or url parameters or post parameters for token
     var token = req.headers['x-access-token'];
     if (!token)
         return res.status(403).send({ auth: false, message: 'No token provided.' });
-
+    
     // verifies secret and checks exp
     JWT.verify(token, process.env.JWT_SECRET, function (err, decoded) {
         if (err)
@@ -15,7 +15,7 @@ function verifyToken(req, res, next) {
         // if everything is good, save to request for use in other routes
         req.userId = decoded.id;
         req.userType = decoded.type;
-
+        
         next();
     });
 }

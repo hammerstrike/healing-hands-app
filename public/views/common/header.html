@@ -14,14 +14,11 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" uib-dropdown>
                     <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
-                        <i class="fa fa-user"></i>
-                        <b class="caret hidden-sm hidden-xs"></b>                                   
+                        <span class="text-uppercase">{{user.username}}</span>
+                        <b class="caret hidden-sm hidden-xs"></b>                               
                     </a>
-                    <ul class="dropdown-menu" uib-dropdown-menu>
-                        <li><a href="#">User Menu 1</a></li>
-                        <li><a href="#">User Menu 2</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Log Out</a></li>
+                    <ul class="dropdown-menu" uib-dropdown-menu>                        
+                        <li><a href="javascript:void(0)" ng-click="logout()">Log Out</a></li>
                     </ul>
                 </li>
                 <li class="separator hidden-lg hidden-md"></li>

@@ -10,6 +10,7 @@ angular
      */
     .factory('LoaderService', ['$rootScope', function ($rootScope) {
         return {
+            
             /**
              * Show Loader
              */
@@ -70,6 +71,91 @@ angular
         }
     }])
 
+    .service('UserService', ['$rootScope','$http', '$q', 'CommonAjxService', 'API_HOST', function ($rootScope,$http, $q, CommonAjxService, API_HOST) {
+
+        function UserService() { 
+            this.user = null
+        };
+
+        UserService.prototype = {
+            login : function (data) {
+                
+                var config = {
+                    method: 'POST',
+                    url: API_HOST + 'user/login',
+                    data: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                var _self = this;
+
+                return CommonAjxService.getData(config, false).then(function (response) {
+                    var result = response.data;
+                    xAccessToken = (response.headers())["x-access-token"];
+                    console.log(xAccessToken);
+
+                    if(result.status == 'success') {
+                        localStorage.setItem('x-access-token', xAccessToken);
+                        _self.user = result.data.user;
+                        return {
+                            status: 'success',
+                            data: result.data
+                        };
+                    }else{
+                        localStorage.removeItem('x-access-token');
+                        _self.user = null;
+                        return {
+                            status: 'fail',
+                            data: result.data
+                        };
+                    };
+
+                }, function (reason) {
+                    localStorage.removeItem('x-access-token');
+                    _self.user = null;
+                    return {
+                        status: 'fail',
+                        data: reason
+                    };
+                }).catch(function(err){
+                    localStorage.removeItem('x-access-token');
+                    _self.user = null;
+                    return {
+                        status: 'error',
+                        data: err
+                    };
+                });
+            },
+
+            auth : function (data) {
+                
+                var xAccessToken = localStorage.getItem('x-access-token');
+                var config = {
+                    method: 'POST',
+                    url: API_HOST + 'user/auth',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-access-token' : xAccessToken
+                    }
+                };
+                var _self = this;
+                return CommonAjxService.getData(config, false).then(function(response){
+                    if(response.data.auth){
+                        _self.user = response.data.user;
+                        return {auth : true};
+                    }else{
+                        return {auth : false};
+                    }
+                },function(reason){
+                    return {auth : false};
+                })               
+            },
+        }
+
+        return new UserService;
+    }])
+
     /**
      * ===================================
      * Service : APIService
@@ -83,21 +169,17 @@ angular
         function APIService() { };
 
         APIService.prototype = {
-
-            /**
-             * Add new Record
-             * @param {Object} params
-             * @return {Object} {status = [success/fail], data = [LOT object]}
-            */
-
+           
+            
             addRecord: function (data) {
-                
+                var xAccessToken = localStorage.getItem('x-access-token');
                 var config = {
                     method: 'POST',
-                    url: API_HOST + 'record/save',
+                    url: API_HOST + 'patient/save',
                     data: JSON.stringify(data),
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'x-access-token' : xAccessToken
                     }
                 };
 
@@ -128,6 +210,44 @@ angular
                 });
             },
 
+            getRecord: function (data) {
+                var xAccessToken = localStorage.getItem('x-access-token');
+                var config = {
+                    method: 'POST',
+                    url: API_HOST + 'patient/get',
+                    data: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-access-token' : xAccessToken
+                    }
+                };
+
+                return CommonAjxService.getData(config, false).then(function (response) {
+                    var result = response.data;
+                    if(result.status == 'success') {
+                        return {
+                            status: 'success',
+                            data: result.data
+                        };
+                    }else{
+                        return {
+                            status: 'fail',
+                            data: result.data
+                        };
+                    };
+
+                }, function (reason) {
+                    return {
+                        status: 'fail',
+                        data: reason
+                    };
+                }).catch(function(err){
+                    return {
+                        status: 'error',
+                        data: err
+                    };
+                });
+            },
 
         }
 
