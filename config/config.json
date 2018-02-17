@@ -1,0 +1,11 @@
+{
+  "development": {
+    "PORT": 3000,
+    "MONGODB_URI": "mongodb://localhost:27017/healinghands",
+    "JWT_SECRET": "!!How2TrainYourDragon!!"
+  },
+  "staging": {
+    "MONGODB_URI": "mongodb+srv://Prajakta:SweetChilly@medinventory-cluster-0-x7zwz.mongodb.net/healinghands",
+    "JWT_SECRET": "!!How2TrainYourDragon!!"
+  }
+}

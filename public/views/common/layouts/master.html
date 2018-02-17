@@ -1,0 +1,20 @@
+<div growl></div>
+<div class="wrapper">
+    <!-- Sidebar Navigation -->
+    <div ng-include="'views/common/sidebar-nav.html'"></div>
+
+    <div class="main-panel">
+
+        <!-- Header -->
+        <div ng-include="'views/common/header.html'"></div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div ui-view></div>
+        </div>
+
+        <!-- Footer -->
+        <div ng-include="'views/common/footer.html'"></div>
+
+    </div>
+</div>
