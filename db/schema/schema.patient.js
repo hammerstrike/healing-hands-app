@@ -50,7 +50,7 @@ var PatientSchema = new mongoose.Schema({
     timestamp : {
         type : Date,
         required : true,
-        default : new Date().toISOString()
+        default : new Date()
     }
 
 },{ collection : 'patient' });

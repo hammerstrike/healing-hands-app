@@ -9,12 +9,12 @@ var Patient = require('../modules/patient.js')
 router.post('/get',VerifyToken, function (req, res) {
     console.log(req.body.filters);
 
-    var startDate = prevDate(dateFormat(req.body.filters.endDate)),
-        endDate =  dateFormat(req.body.filters.endDate),
+    var startDate = req.body.filters.endDate,
+        endDate = req.body.filters.endDate,
         
         query = {
             $and: [
-                { "timestamp": { "$gte" : startDate, "$lt" : endDate}}, 
+                { "timestamp": { "$gte" : new Date(2018,1,16), "$lt" : new Date(2018,1,17)}}, 
                 { "addedBy": req.userId }
             ]
         };
@@ -22,18 +22,15 @@ router.post('/get',VerifyToken, function (req, res) {
         console.log("startDate:",startDate);
         console.log("endDate:",endDate);
 
-        function dateFormat(d){            
-            d = new Date(d);
-            return new Date(d.toISOString());
+        function startDate(d){
+           
         }
 
-        function prevDate(d){
-            var current = new Date();
-            d.setDate(current.getDate() - 1);
-            return d;
+        function endDate(d){     
+           
         }
 
-    Patient.getPatient(query).then(function (result) {
+    Patient.getPatient({ "addedBy": req.userId }).then(function (result) {
         res.json({
             status: "success",
             data: result
