@@ -7,9 +7,33 @@ var Patient = require('../modules/patient.js')
 
 /* Patient Get*/
 router.post('/get',VerifyToken, function (req, res) {
-    var query = req.body.query || {};
+    console.log(req.body.filters);
 
-    Patient.getPatient({$and: [query, { addedBy : req.userId } ]}).then(function (result) {
+    var startDate = prevDate(dateFormat(req.body.filters.endDate)),
+        endDate =  dateFormat(req.body.filters.endDate),
+        
+        query = {
+            $and: [
+                { "timestamp": { "$gte" : startDate, "$lt" : endDate}}, 
+                { "addedBy": req.userId }
+            ]
+        };
+
+        console.log("startDate:",startDate);
+        console.log("endDate:",endDate);
+
+        function dateFormat(d){            
+            d = new Date(d);
+            return new Date(d.toISOString());
+        }
+
+        function prevDate(d){
+            var current = new Date();
+            d.setDate(current.getDate() - 1);
+            return d;
+        }
+
+    Patient.getPatient(query).then(function (result) {
         res.json({
             status: "success",
             data: result

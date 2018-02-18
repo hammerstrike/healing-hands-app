@@ -15,21 +15,26 @@ var User = {
 
             UserModel
                 .findOne(query, function (err, userData) {
-
+                    
                     //IF Error
-                    if (err) reject(err);
-
+                    if (err) {
+                        reject({error : err});
+                        return;
+                    }
                     //IF no user data
-                    if (!userData) resolve('No user found.');
+                    if (!userData || (userData==null)) {
+                        reject('No User found');
+                        return;
+                    }
 
                     //Chek for password
                     var passwordIsValid = bcrypt.compareSync(loginData.password, userData.password);
 
                     //IF password is not valid
-                    if (!passwordIsValid) resolve({
-                        auth: false,
-                        token: null
-                    });
+                    if (!passwordIsValid) {
+                        reject('Invalid Creds');  
+                        return;                      
+                    }
 
                     // if user is found and password is valid
                     // create a token

@@ -5,9 +5,34 @@
                 <div class="header ">                    
                     <h4 class="title">Patient's List</h4>
                     <div class="clearfix"></div>
+                    <p class="category">Search Patients</p>
+                    <br>
+                    <div class="form-inline">                       
+                        <div class="input-group">
+                            <input type="text" 
+                                class="form-control" 
+                                placeholder="Date"                             
+                                data-animation="false"
+                                title="Date" 
+
+                                ng-model="filterDate"
+                                uib-datepicker-popup="{{format}}" 
+                                ng-change="filterDateChanged()"                                
+                                is-open="filterDatePopup.opened" 
+                                datepicker-options="filterDateOptions" 
+                                ng-required="true"
+                                show-button-bar="false" 
+                                ng-click="filterDateDtpkr()">
+                                
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-pharma" ng-click="filterDateDtpkr()"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="content table-full-width table-responsive">
-                    <table class="table table-hover table-striped">
+                <div class="content table-full-width table-patients table-responsive">
+                    <p class="alert alert-info" ng-if="patients.length == 0"><i class="fa fa-info-circle"></i> No Patient Recods found</p>
+                    <table class="table table-hover table-striped" ng-if="patients.length != 0">
                         <thead>
                             <tr>
                                 <th>Patient ID</th>
@@ -19,6 +44,7 @@
                                 <th>Amount Paid</th>
                                 <th>Amount Total</th>
                                 <th>Amount Remaining</th>
+                                <th>Date</th>
                                 <th>Additional Info</th>
                             </tr>
                         </thead>
@@ -33,6 +59,7 @@
                                 <td>{{patient.amountPaid}}</td>
                                 <td>{{patient.amountTotal}}</td>
                                 <td>{{patient.amountTotal - patient.amountPaid}}</td>
+                                <td>{{patient.timestamp | date : 'dd/MM/yyyy'}}</td>
                                 <td>{{patient.additionalInfo}}</td>
                             </tr>
                         </tbody>

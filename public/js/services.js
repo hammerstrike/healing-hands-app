@@ -211,6 +211,7 @@ angular
             },
 
             getRecord: function (data) {
+               
                 var xAccessToken = localStorage.getItem('x-access-token');
                 var config = {
                     method: 'POST',

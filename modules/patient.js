@@ -4,7 +4,6 @@ var PatientModel = require('../db/schema/schema.patient');
 var Patient = {
 
     getPatient : function(query){
-        var query = query || {};
         return new Promise(function(resolve, reject) {
             PatientModel
                 .find(query,{_id : 0},function(err,patientData){

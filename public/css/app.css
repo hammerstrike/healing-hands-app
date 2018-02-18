@@ -144,6 +144,7 @@ html,body{
 
 .form-signin {
     max-width: 380px;
+    width: 100%;
     padding: 15px 35px 45px;
     margin: 0 auto;
     background-color: #fff;
@@ -152,7 +153,8 @@ html,body{
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 100%;
+    box-shadow: 0 0 20px 0px #333;
+    border-radius: 10px;
 }
 
 .form-signin .form-signin-heading,
@@ -191,3 +193,6 @@ html,body{
 }
 
 /* Patient Record */
+.table-patients .alert{
+        margin : 0 10px;
+}
