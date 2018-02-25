@@ -9,7 +9,9 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var user = require('./routes/user');
 var patient = require('./routes/patient');
+var record = require('./routes/record');
 
+//Express App instance
 var app = express();
 
 // view engine setup
@@ -31,6 +33,7 @@ var mongoose = require('./modules/mongoose');
 app.use('/', index);
 app.use('/user', user);
 app.use('/patient', patient);
+app.use('/record', record);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

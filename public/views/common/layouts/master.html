@@ -1,12 +1,12 @@
 <div growl></div>
 <div class="wrapper">
     <!-- Sidebar Navigation -->
-    <div ng-include="'views/common/sidebar-nav.html'"></div>
+    <div ng-include="'views/common/sidebar-nav.html'" class="sidebar" data-color="purple" ng-class="{'open' : isSidebarOpen}"></div>
 
-    <div class="main-panel">
+    <div class="main-panel" ng-class="{'sidebar-open' : isSidebarOpen}">
 
         <!-- Header -->
-        <div ng-include="'views/common/header.html'"></div>
+        <div ng-include="'views/common/header.html'" class="mobile-header"></div>
 
         <!-- Main Content -->
         <div class="content">

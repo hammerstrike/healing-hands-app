@@ -169,13 +169,90 @@ angular
         function APIService() { };
 
         APIService.prototype = {
-           
-            
-            addRecord: function (data) {
+
+            addPatient: function (data) {
                 var xAccessToken = localStorage.getItem('x-access-token');
                 var config = {
                     method: 'POST',
                     url: API_HOST + 'patient/save',
+                    data: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-access-token' : xAccessToken
+                    }
+                };
+
+                return CommonAjxService.getData(config, false).then(function (response) {
+                    var result = response.data;
+                    if(result.status == 'success') {
+                        return {
+                            status: 'success',
+                            data: result.data
+                        };
+                    }else{
+                        return {
+                            status: 'fail',
+                            data: result.data
+                        };
+                    };
+
+                }, function (reason) {
+                    return {
+                        status: 'fail',
+                        data: reason
+                    };
+                }).catch(function(err){
+                    return {
+                        status: 'error',
+                        data: err
+                    };
+                });
+            },
+
+            getPatient: function (data) {
+                var xAccessToken = localStorage.getItem('x-access-token');
+                var config = {
+                    method: 'POST',
+                    url: API_HOST + 'patient/get',
+                    data: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-access-token' : xAccessToken
+                    }
+                };
+
+                return CommonAjxService.getData(config, false).then(function (response) {
+                    var result = response.data;
+                    if(result.status == 'success') {
+                        return {
+                            status: 'success',
+                            data: result.data
+                        };
+                    }else{
+                        return {
+                            status: 'fail',
+                            data: result.data
+                        };
+                    };
+
+                }, function (reason) {
+                    return {
+                        status: 'fail',
+                        data: reason
+                    };
+                }).catch(function(err){
+                    return {
+                        status: 'error',
+                        data: err
+                    };
+                });
+            },
+
+            addRecord: function (data) {
+                var xAccessToken = localStorage.getItem('x-access-token');
+                var config = {
+                    method: 'POST',
+                    url: API_HOST + 'record/save',
                     data: JSON.stringify(data),
                     headers: {
                         'Content-Type': 'application/json',
@@ -215,7 +292,7 @@ angular
                 var xAccessToken = localStorage.getItem('x-access-token');
                 var config = {
                     method: 'POST',
-                    url: API_HOST + 'patient/get',
+                    url: API_HOST + 'record/get',
                     data: JSON.stringify(data),
                     headers: {
                         'Content-Type': 'application/json',

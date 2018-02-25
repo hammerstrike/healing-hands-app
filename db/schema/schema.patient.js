@@ -2,58 +2,78 @@ var mongoose = require('../../modules/mongoose');
 var Counter = require('./schema.counter');
 
 var PatientSchema = new mongoose.Schema({
-   
+
     patientId : {
         type: String,       
         unique : true,
         required : true
     },
-
     patientName : {
         type: String,      
         required : true
     },
-
     age : {
         type: Number,
         required : true
     },
-
     sex : {
         type: String,
         required : true
-    },
+    },    
     refferedBy : {
         type: String,
-        required : true
+        default : ""
+       // required : true
     },
-    procedureTreatment : {
+    contactNo : {
         type: String,
-        required : true
+        validate: {
+            validator: function (v) {
+                return ((v.length) == 10);
+            },
+            message: '{VALUE} Invalid Phone Number! Should be 10 Digit!'
+        },
+        default : ""
     },
-    amountPaid : {
-        type: Number,
-        required : true
-    },
-    amountTotal : {
-        type: Number,
-        required : true
-    },
-    addedBy : {
+    emailId : {
         type: String,
-        required : true
+        default : ""
+    },
+    medicalHistory : {
+        type: String,
+        default : ""
+    },
+    drugHistory : {
+        type: String,
+        default : ""
+    },
+    allergicTo : {
+        type: String,
+        default : ""
+    },
+    habits : {
+        type: String,
+        default : ""
+    },
+    isPregnant : {
+        type: Boolean,
+        default : false
     },
     additionalInfo : {
         type: String,
         default : ""
     },
+    addedBy : {
+        type: String,
+        required : true
+    },
     timestamp : {
         type : Date,
         required : true,
-        default : new Date()
+        default : new Date().toISOString()
     }
 
-},{ collection : 'patient' });
+},{ collection : 'Patient' });
 
 PatientSchema.pre('validate', function(next) {
     var patient = this;

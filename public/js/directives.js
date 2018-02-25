@@ -71,7 +71,7 @@ function bootstrapCollapseDirective() {
 
     function link(scope, element, attrs) {
         if (attrs.toggle == 'collapse') {
-            element.attr('href', 'javascript;;').attr('data-target', attrs.href.replace('index.html', ''));
+            element.attr('href', 'javascript:void(0);').attr('data-target', attrs.href.replace('index.html', ''));
         }
     }
 }

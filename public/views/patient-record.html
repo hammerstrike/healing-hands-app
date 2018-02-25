@@ -3,73 +3,87 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
-                    <h4 class="title">App Patient Record</h4>
+                    <h4 class="title">Patient Record</h4>
+                    <br>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="search.$" placeholder="Search...">  
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn-fill" type="button">Search <i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                    </div>
+                    <p class="text-warning"><i class="fa fa-info-circle"></i> Please select a patient to add record !</p>
                 </div>
                 <div class="content">
-                    <div class="form">
-                       
+
+                    <div class="patients-list" ng-if="!recordForm.visible">
+                        <div class="list-group">
+                            <a 
+                            href="javascript:void(0)" 
+                            class="list-group-item" 
+                            
+                            ng-repeat="patient in patients | filter:search:strict"
+                            ng-click="recordForm.open(patient)">
+                                <h4 class="list-group-item-heading">{{patient.patientName}}</h4>
+                                <p class="list-group-item-text">
+                                    <strong>Contact: </strong>{{patient.contactNo}}<br>
+                                    <strong ng-if="patient.refferedBy">Reffered By: </strong>{{patient.refferedBy}}
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="record-form" ng-if="recordForm.visible">    
+                                     
                         <div class="row">
-                            <div class="col-md-4 pr-1">
+
+                            <div class="col-md-3 pr-1">
                                 <div class="form-group">
                                     <label>Patient Name</label>
-                                    <input type="text" ng-model="patient.patientName" class="form-control" placeholder="Patient Name">
+                                    <input type="text" disabled ng-model="recordForm.data.patientName" class="form-control" placeholder="Patient Name">
                                 </div>
                             </div>
 
-                            <div class="col-md-4 pr-1">
-                                <div class="form-group">
-                                    <label>Age</label>
-                                    <input type="text" ng-model="patient.age" class="form-control" placeholder="Age">
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 pr-1">
-                                <div class="form-group">
-                                    <label>Sex</label>
-                                    <select ng-model="patient.sex" class="form-control">
-                                        <option value="F">Female</option>
-                                        <option value="M">Male</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 pr-1">
-                                <div class="form-group">
-                                    <label>Reffered By</label>
-                                    <input type="text" ng-model="patient.refferedBy" class="form-control" placeholder="Reffered By">
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 pr-1">
+                            <div class="col-md-3 pr-1">
                                 <div class="form-group">
                                     <label>Procedure / Treatment</label>
-                                    <input type="text" ng-model="patient.procedureTreatment" class="form-control" placeholder="Procedure/Treatment">
+                                    <input type="text" ng-model="recordForm.data.procedureTreatment" class="form-control" placeholder="Procedure/Treatment">
                                 </div>
                             </div>
 
-                            <div class="col-md-4 pr-1">
+                            <div class="col-md-3 pr-1">
+                                <div class="form-group">
+                                    <label>Diagnosis</label>
+                                    <input type="text" ng-model="recordForm.data.diagnosis" class="form-control" placeholder="Diagnosis">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 pr-1">
+                                <div class="form-group">
+                                    <label>Additional Info</label>
+                                    <input type="text" ng-model="recordForm.data.additionalInfo" class="form-control" placeholder="Additional Info">
+                                </div>
+                            </div>
+                     
+                            <div class="col-md-3 pr-1">
                                 <div class="form-group">
                                     <label>Amount Paid</label>
-                                    <input type="text" ng-model="patient.amountPaid" class="form-control" placeholder="Amount Paid">
+                                    <input type="text" ng-model="recordForm.data.amountPaid" class="form-control" placeholder="Amount Paid">
                                 </div>
                             </div>
 
-                            <div class="col-md-4 pr-1">
+                            <div class="col-md-3 pr-1">
                                 <div class="form-group">
                                     <label>Amount Total</label>
-                                    <input type="text" ng-model="patient.amountTotal" class="form-control" placeholder="Amount Total">
+                                    <input type="text" ng-model="recordForm.data.amountTotal" class="form-control" placeholder="Amount Total">
                                 </div>
                             </div>
                             
-                            <div class="col-md-4 pr-1">
-                                <div class="form-group">
-                                    <label>Additional Info</label>
-                                    <input type="text" ng-model="patient.additionalInfo" class="form-control" placeholder="Additional Info">
-                                </div>
-                            </div>
                         </div>
                       
-                        <button type="submit" class="btn btn-success btn-fill pull-right" ng-click="addRecord()">Add Record</button>
+                        <button type="button" class="btn btn-success btn-fill pull-right" ng-click="addRecord()">Add Record</button>
                         <div class="clearfix"></div>
                     </div>
                 </div>

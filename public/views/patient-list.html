@@ -2,68 +2,75 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card strpied-tabled-with-hover">
-                <div class="header ">                    
-                    <h4 class="title">Patient's List</h4>
-                    <div class="clearfix"></div>
-                    <p class="category">Search Patients</p>
-                    <br>
-                    <div class="form-inline">                       
+                <div class="header ">                  
+                    <div class="form-inline pull-right">
                         <div class="input-group">
-                            <input type="text" 
-                                class="form-control" 
-                                placeholder="Date"                             
-                                data-animation="false"
-                                title="Date" 
-
-                                ng-model="filterDate"
-                                uib-datepicker-popup="{{format}}" 
-                                ng-change="filterDateChanged()"                                
-                                is-open="filterDatePopup.opened" 
-                                datepicker-options="filterDateOptions" 
-                                ng-required="true"
-                                show-button-bar="false" 
-                                ng-click="filterDateDtpkr()">
-                                
+                            <input type="text" class="form-control" placeholder="Date" data-animation="false" title="Date" ng-model="filterDate" uib-datepicker-popup="{{format}}"
+                                ng-change="filterDateChanged()" is-open="filterDatePopup.opened" datepicker-options="filterDateOptions" ng-required="true"
+                                show-button-bar="false" ng-click="filterDateDtpkr()">
+                    
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-pharma" ng-click="filterDateDtpkr()"><i class="fa fa-calendar"></i></button>
+                                <button type="button" class="btn btn-pharma" ng-click="filterDateDtpkr()">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
                             </span>
                         </div>
                     </div>
+                    <h4 class="title">Patient's List</h4>
+                    <div class="clearfix"></div>
+                    <p class="category">Patient's Record</p>
+                    
                 </div>
-                <div class="content table-full-width table-patients table-responsive">
-                    <p class="alert alert-info" ng-if="patients.length == 0"><i class="fa fa-info-circle"></i> No Patient Recods found</p>
-                    <table class="table table-hover table-striped" ng-if="patients.length != 0">
-                        <thead>
-                            <tr>
-                                <th>Patient ID</th>
-                                <th>Patient Name</th>
-                                <th>Age</th>
-                                <th>Sex</th>
-                                <th>Reffered By</th>
-                                <th>Procedure/Treatment</th>                                
-                                <th>Amount Paid</th>
-                                <th>Amount Total</th>
-                                <th>Amount Remaining</th>
-                                <th>Date</th>
-                                <th>Additional Info</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="patient in patients" ng-class="{'text-danger' : (patient.amountTotal - patient.amountPaid) > 0}">
-                                <td>{{patient.patientId}}</td>
-                                <td>{{patient.patientName}}</td>
-                                <td>{{patient.age}}</td>
-                                <td>{{patient.sex}}</td>
-                                <td>{{patient.refferedBy}}</td>
-                                <td>{{patient.procedureTreatment}}</td>
-                                <td>{{patient.amountPaid}}</td>
-                                <td>{{patient.amountTotal}}</td>
-                                <td>{{patient.amountTotal - patient.amountPaid}}</td>
-                                <td>{{patient.timestamp | date : 'dd/MM/yyyy'}}</td>
-                                <td>{{patient.additionalInfo}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="content">
+                    <div class="patients-list">
+                        
+                        <div class="panel panel-hh" ng-repeat="patient in patients">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{patient.patientName}} - {{patient.contactNo}} - {{patient.emailId}}</h3>
+                            </div>
+                            <div class="panel-body">
+                                    <!-- Patient Name : {{patient.patientName}}
+                                    age : {{patient.age}}
+                                    sex : {{patient.sex}}
+                                    Email Id : {{patient.emailId}}
+                                    Contact No : {{patient.contactNo}}
+                                    Allergic To : {{patient.allergicTo}}
+                                    Habits : {{patient.habits}}
+                                    Medical History : {{patient.medicalHistory}}
+                                    Drug History : {{patient.drugHistory}}
+                                    Is Pregnant : {{patient.isPregnant}}
+                                    Additional Info : {{patient.additionalInfo}}
+                                    Reffered By : {{patient.refferedBy}} -->
+                               
+                                <div class="patient-details table-full-width table-patients table-responsive" >
+                                    <table class="table table-hover table-striped" ng-if="patients.length != 0">
+                                        <thead>
+                                            <tr>                                                
+                                                <th>Procedure/Treatment</th>
+                                                <th>Diagnosis</th>
+                                                <th>Date</th>
+                                                <th>Amount Paid</th>
+                                                <th>Amount Total</th>
+                                                <th>Amount Remaining</th>                                                
+                                                <th>Additional Info</th>        
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="record in patient.records" ng-class="{'text-danger' : (record.amountTotal - record.amountPaid) > 0}">
+                                                <td>{{record.procedureTreatment}}</td>
+                                                <td>{{record.diagnosis}}</td>
+                                                <td>{{record.timestamp | date : 'yyyy-MMM-dd'}}</td>
+                                                <td>{{record.amountPaid}}</td>
+                                                <td>{{record.amountTotal}}</td>
+                                                <td>{{record.amountTotal - record.amountPaid}}</td>
+                                                <td>{{record.additionalInfo}}</td>                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

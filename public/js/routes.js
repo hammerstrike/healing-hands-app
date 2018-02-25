@@ -13,6 +13,7 @@ angular
             .state('app', {
                 abstract: true,
                 templateUrl: 'views/common/layouts/master.html',
+                controller : 'MasterController',
                 param: {
                     page: "Master"
                 },
@@ -53,6 +54,22 @@ angular
                     loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             files: ['js/controllers/controller.dashboard.js']
+                        });
+                    }]
+                }
+            })
+
+            .state('app.patient-register', {
+                url: '/patient-register',
+                param: {
+                    page: "Patient Registration"
+                },
+                templateUrl: 'views/patient-register.html',
+                controller: 'PatientRegisterController',
+                resolve: {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            files: ['js/controllers/controller.patient-register.js']
                         });
                     }]
                 }

@@ -3,12 +3,12 @@ var router = express.Router();
 var bcrypt = require('bcryptjs');
 
 var VerifyToken = require('../modules/verify-token')
-var Patient = require('../modules/patient.js')
+var Record = require('../modules/record.js')
 
-/* Patient Get*/
+/* Record Get*/
 router.post('/get',VerifyToken, function (req, res) {
-    var query = req.body.query || {};
-    Patient.getPatient(query).then(function (result) {
+    
+    Record.getRecord({ "addedBy": req.userId, "endDate" : req.body.filters.endDate }).then(function (result) {
         res.json({
             status: "success",
             data: result
@@ -27,25 +27,20 @@ router.post('/get',VerifyToken, function (req, res) {
     })
 });
 
-/* Patient Save */
+/* Record Save */
 router.post('/save',VerifyToken, function (req, res) {
 
-    Patient.savePatient({
-        patientId : "",
-        patientName : req.body.patientName,
-        age : req.body.age,
-        sex : req.body.sex,
-        emailId : req.body.emailId,
-        contactNo :  req.body.contactNo,
-        allergicTo : req.body.allergicTo,
-        habits : req.body.habits,
-        medicalHistory : req.body.medicalHistory,
-        drugHistory : req.body.drugHistory,
-        isPregnant : req.body.isPregnant,
+    Record.saveRecord({
+        
+        recordId : "",
+        patientId : req.body.patientId,
+        procedureTreatment : req.body.procedureTreatment,
+        diagnosis : req.body.diagnosis,
+        amountPaid : req.body.amountPaid,
+        amountTotal : req.body.amountTotal,
         additionalInfo : req.body.additionalInfo,
-        refferedBy : req.body.refferedBy,
-        addedBy : req.userId,
-       
+        addedBy : req.userId
+
     }).then(function (result) {
         res.json({
             status: "success",

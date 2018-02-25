@@ -6,7 +6,7 @@ var Patient = {
     getPatient : function(query){
         return new Promise(function(resolve, reject) {
             PatientModel
-                .find(query,{_id : 0},function(err,patientData){
+                .find(query,{_id:0},function(err,patientData){
                     resolve(patientData);
                 })
         })

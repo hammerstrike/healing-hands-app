@@ -13,7 +13,7 @@ var CounterSchema = new mongoose.Schema({
         type : String,
          required: true
     }
-},{ collection : 'counter' });
+},{ collection : 'Counter' });
 
 var Counter = mongoose.model('Counter', CounterSchema);
 module.exports = Counter

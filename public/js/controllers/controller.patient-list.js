@@ -8,7 +8,7 @@ angular
         //Datepicker 
         $scope.filterDate = new Date();
         $scope.filterDateChanged = function () {
-            getRecods({ endDate : $scope.filterDate});
+            getRecords({ endDate : $scope.filterDate});
         };
 
         $scope.filterDateOptions = {
@@ -26,9 +26,9 @@ angular
         //End Filters : Date
 
         //Initial Call
-        getRecods({ endDate : new Date() });
+        getRecords({ endDate : new Date() });
 
-        function getRecods(data){
+        function getRecords(data){
             
             var growlLoading = growl.warning('<i class="fa fa-cog fa-spin fa-fw"></i> Fetching records', {
                 disableIcons: true, 

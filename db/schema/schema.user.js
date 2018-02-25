@@ -38,7 +38,7 @@ var UserSchema = new mongoose.Schema({
     timestamp : {
         type : Date,
         required : true,
-        default : new Date()
+        default : new Date().toISOString()
     }
 
 },{ collection : 'User' });
